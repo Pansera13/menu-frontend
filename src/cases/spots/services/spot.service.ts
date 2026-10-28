@@ -1,12 +1,11 @@
-import { api } from '../../../services/api';
+import { api } from '@/lib/axios';
+import type { SpotDTO } from '../dtos/spot.dot';
 
-type SpotDTO = Record<string, unknown>;
-
-    const ENDPOINT = '/api/spots';
+    const ENDPOINT = '/spots';
 
     export const SpotService = {
-        async listALL(): Promise<SpotDTO> {
-            const result = await api.get<SpotDTO>(ENDPOINT);
+        async listALL(): Promise<SpotDTO[]> {
+            const result = await api.get<SpotDTO[]>(ENDPOINT);
             return result.data;
         },
 
