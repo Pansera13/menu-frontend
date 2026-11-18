@@ -1,23 +1,22 @@
-import { useCategories } from "@/cases/categories/hooks/use-category";
+import { useCategory } from "@/cases/categories/hooks/use-category";
+import { ProductList } from "@/cases/products/component/product-list";
 import { useSearchParams } from "react-router-dom";
 
 export function ProductPage() {
+  const [searchParams] = useSearchParams();
+  const categoryId = searchParams.get('categoryId');
 
-const [searchParams] = useSearchParams();
-     const CategoryId = searchParams.get('categoryId');
+  const { data: selectedCategory} = useCategory(categoryId ?? '');
 
-     const { data: categories = [] } = useCategories();
+  return (
+    <div className="flex flex-col gap-6">
+      {selectedCategory && (
+        <h2 className="text-2xl font-semibold uppercase">
+          {selectedCategory.name}
+        </h2>
+      )}
 
-     const selectedCategory = categories.find((category) => category.id === CategoryId); 
-
-    return (
-        <div className="flex flex-col gap-6">
-            {selectedCategory && (
-                <>
-                    <h2 className="text-2xl font-semibold uppercase">Categoria</h2>
-                    <span>{selectedCategory.name}</span>
-                </>
-            )}
-        </div>
-    )
+      <ProductList categoryId={categoryId ?? undefined} />
+    </div>
+  )
 }

@@ -8,13 +8,13 @@ export function SpotButton() {
 
   const [dialogOpen, setDialogOpen] = useState(false);
 
-  const [ selectedSpot, setSelectedSpot ] = useState<SpotDTO | null>(() => {
-    const spot = localStorage.getItem("spot");
-    return spot ? JSON.parse(spot) : null;
+  const [selectedSpot, setSelectedSpot] = useState<SpotDTO | null>(() => {
+    const spotStorage = localStorage.getItem('spot')
+    return spotStorage ? JSON.parse(spotStorage) : null;
   });
 
   function handleSelect(spot: SpotDTO) {
-    localStorage.setItem("spot", JSON.stringify(spot));
+    localStorage.setItem('spot', JSON.stringify(spot));
     setSelectedSpot(spot);
     setDialogOpen(false);
   }
@@ -28,14 +28,13 @@ export function SpotButton() {
         onClick={() => setDialogOpen(true)}
       >
         <MapPin className="size-6" />
-        { selectedSpot ? selectedSpot.name : "Selecionar Mesa" }
+        { selectedSpot ? selectedSpot.name : 'Selecionar Mesa'}        
       </Button>
 
-      <SpotDialog
-        open={dialogOpen}
-        onOpenChange={setDialogOpen}
+      <SpotDialog 
+        open={dialogOpen} 
         onSelect={handleSelect}
-        selectedSpotid={selectedSpot?.id}
+        selectedSpotId={selectedSpot?.id}
       />
     </div>
   )

@@ -6,19 +6,19 @@ import { Utensils } from "lucide-react"
 export function CategoryNav() {
 
   const [searchParams] = useSearchParams();
-  const selectedCategorieId = searchParams.get('categoryId')
+  const selectedCategoryId = searchParams.get('categoryId');
 
   const { data: categories = [] } = useCategories()
 
   return (
     <nav className="w-full">
-      <ul
-        className="overflow-hidden rounded-xl border
+      <ul 
+        className="overflow-hidden rounded-xl border 
         border-border/70 bg-transparent"
       >
         { categories.map((category) => (
-          <li
-            key={category.id}
+          <li 
+            key={category.id} 
             className="relative"
           >
             <Link
@@ -29,19 +29,23 @@ export function CategoryNav() {
                 'border-xl border border-transparent',
                 'transition-colors duration-200',
                 'hover:z-10 hover:text-[#B86A2C]',
-                selectedCategorieId === category.id ? ['border-[#B86A2C]', 'bg-primary/5'] : ['text-foreground', 'border-b-border/60']
+                selectedCategoryId === category.id ? 
+                  ['border-[#B86A2C]', 'bg-primary/5', 'text-[#B86A2C]'] 
+                : 
+                  ['text-foreground', 'border-b-border/60']        
               )}
             >
               {category.icon ? (
-                <span>ICON</span>
+                <img src={category.icon} 
+                  className="size-10" />
               ) : (
                 <Utensils
-                  className="size-10 text-brand"
+                  className="size-10 text-brand" 
                 />
               )}
               <span className="leading-tight">{category.name}</span>
             </Link>
-
+            
           </li>
         )) }
       </ul>
